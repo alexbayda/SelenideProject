@@ -16,7 +16,6 @@ public class RandomSelector {
     public static void randomByText(WebElement dropdown, String text) {
         Select random = new Select(dropdown);
         random.selectByVisibleText(text);
-        int lala = 0;
     }
 }
 

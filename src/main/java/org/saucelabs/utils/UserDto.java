@@ -15,8 +15,8 @@ public class UserDto {
     private String postalCode;
 
 
-    public UserDto(){
-    }
+    public UserDto(){}
+
     public UserDto(String name, String surname, String username, String password, String postalCode){
         this.name = name;
         this.surname = surname;

@@ -14,17 +14,11 @@ public class MainPage {
 
     private final SelenideElement usernameBox = $x("//*[@id=\"user-name\"]");
     private final SelenideElement passwordBox = $x("//*[@id=\"password\"]");
-
     private final SelenideElement loginButton = $("#login-button");
-
     private final List<ElementsCollection> addToCardButtonList = Collections.singletonList($$(".btn"));
-
     private final SelenideElement shoppingCartBadge = $(".shopping_cart_container");
-
     private final SelenideElement cart = $(".shopping_cart_link");
-
     private final SelenideElement checkoutButton = $("#checkout");
-
     private final SelenideElement checkOutFirstName = $("#first-name");
     private final SelenideElement checkOutLastName = $("#last-name");
     private final SelenideElement checkOutPostalCode = $("#postal-code");
@@ -46,7 +40,7 @@ public class MainPage {
     public void addRandomItemToCart() {
         getRandom(addToCardButtonList);
         elementIsDisplayed(shoppingCartBadge);
-        cart.click();
+        cart.should(Condition.enabled).click(ClickOptions.usingJavaScript());
         checkoutButton.click();
     }
 
