@@ -5,6 +5,15 @@ import org.junit.Before;
 
 abstract public class BaseTest {
 
+
+
+    //implement maven profiles
+    //watch maven to Pojo plugin (maybe implement)
+
+    //https://swapi.dev/ get port put delete + Rest_assured + allure
+    //json schema validation + contact testing
+
+
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";

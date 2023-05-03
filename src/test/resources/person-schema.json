@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "type": "object",
+  "properties": {
+    "name": {"type": "string"},
+    "height": {"type": "string"},
+    "mass": {"type": "string"}
+  },
+  "required": [
+    "name",
+    "height",
+    "mass"
+  ]
+}
