@@ -1,119 +1,68 @@
 package api;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import org.saucelabs.api.data.TestData;
 import io.restassured.response.Response;
 import org.saucelabs.models.Product;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import setup.BaseTest;
+import setup.ProductController;
 
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.startsWith;
-import static org.hamcrest.core.IsEqual.equalTo;
+import java.io.IOException;
+
+import static assertions.ProductAssertions.assertProductProperties;
+import static org.saucelabs.api.data.ProductBuilder.buildProduct;
 
 @lombok.extern.slf4j.Slf4j
 public class ApiTests extends BaseTest {
 
+    private ProductController productController;
 
     @BeforeMethod
     public void setupApi() {
-        RestAssured.baseURI = "https://fakestoreapi.com/";
+        productController = new ProductController();
     }
 
     @Test
-    public void testGetRequest() {
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .when()
-                .get("/products/1");
-
-        response.then()
-                .statusCode(200)
-                .body("id", equalTo(1))
-                .body("title", equalTo("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"))
-                .body("price", equalTo(109.95f))
-                .body("description", startsWith("Your perfect pack for everyday use"))
-                .body("category", equalTo("men's clothing"))
-                .body("image", equalTo("https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"))
-                .body("rating.rate", equalTo(3.9f))
-                .body("rating.count", equalTo(120))
-                .log()
-                .body();
+    public void testGetRequest() throws IOException {
+        Product product = productController.getProduct(1);
+        assertProductProperties(product);
     }
 
-    @Test
-    public void testPostRequest() {
+    @Test(dataProvider = "productData", dataProviderClass = TestData.class)
+    public void testPostRequest(String title, double price, String description, String category) throws IOException {
+        Product product = buildProduct(title,price,description,category);
 
-        Product product = new Product("Sumka", 69.69, "Style is everything",
-                "Men clothing");
-
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(product)
-                .when()
-                .post("/products");
-
-        response.then()
-                .statusCode(200) //should be 201
-                .body("title", equalTo("Sumka"))
-                .body("price", equalTo(69.69F))
-                .body("description", equalTo("Style is everything"))
-                .body("category", equalTo("Men clothing"))
-                .log()
-                .body();
+        Product productRequest = productController.createProduct(product);
+        assertProductProperties(productRequest, title, price, description, category);
     }
 
-    @Test
-    public void testPutRequest() {
-        Product product = new Product("Sumka", 69.69, "Style is everything", "Men clothing");
+    @Test(dataProvider = "productData", dataProviderClass = TestData.class)
+    public void testPutRequest(String title, double price, String description, String category) throws IOException {
+        Product product = buildProduct(title,price,description,category);
 
-        Response postResponse = given()
-                .contentType(ContentType.JSON)
-                .body(product)
-                .when()
-                .post("/products");
+        Product productRequest = productController.createProduct(product);
+        int productId = productRequest.getId();
 
-        int productId = postResponse.jsonPath().getInt("id");
+        Product updatedProduct = Product.builder()
+                .title("Updated " + title)
+                .price(price + 10)
+                .description("Updated " + description)
+                .category("Updated " + category)
+                .build();
 
-        Product updatedProduct = new Product("Sumka Adidas", 79.79, "Style to vse", "Stylish clothing");
-
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .body(updatedProduct)
-                .when()
-                .put("/products/" + productId);
-
-        response.then()
-                .statusCode(200)
-                .body("title", equalTo("Sumka Adidas"))
-                .body("price", equalTo(79.79F))
-                .body("description", equalTo("Style to vse"))
-                .body("category", equalTo("Stylish clothing"))
-                .log()
-                .body();
+        Product putResponse = productController.updateProduct(productId, updatedProduct);
+        assertProductProperties(putResponse, "Updated " + title, price + 10, "Updated " + description, "Updated " + category);
     }
 
-    @Test
-    public void testDeleteRequest() {
-        Product product = new Product("Sumka", 69.69, "Style is everything", "Men clothing");
+    @Test(dataProvider = "productData", dataProviderClass = TestData.class)
+    public void testDeleteRequest(String title, double price, String description, String category) throws IOException {
+        Product product = buildProduct(title,price,description,category);
 
-        Response postResponse = given()
-                .contentType(ContentType.JSON)
-                .body(product)
-                .when()
-                .post("/products");
+        Product postResponse = productController.createProduct(product);
+        int productId = postResponse.getId();
 
-        int productId = postResponse.jsonPath().getInt("id");
-
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .when()
-                .delete("/products/" + productId);
-
-        response.then()
-                .statusCode(200)
-                .log()
-                .body();
+        Response response = productController.deleteProduct(productId);
+        response.then().statusCode(200);
     }
 }

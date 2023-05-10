@@ -1,4 +1,4 @@
-package org.saucelabs;
+package org.saucelabs.ui;
 
 import com.codeborne.selenide.*;
 import org.saucelabs.utils.CSVUtilities;

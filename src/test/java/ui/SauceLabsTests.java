@@ -1,7 +1,7 @@
 package ui;
 
 import setup.BaseTest;
-import org.saucelabs.MainPage;
+import org.saucelabs.ui.MainPage;
 import org.testng.annotations.Test;
 
 public class SauceLabsTests extends BaseTest {

@@ -1,22 +1,31 @@
 package api;
 
-import io.restassured.http.ContentType;
+import io.restassured.response.Response;
+import org.saucelabs.models.Product;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import setup.BaseTest;
+import setup.ProductController;
 
-import static io.restassured.RestAssured.given;
+import java.io.IOException;
+
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
-public class ContractTest {
+public class ContractTest extends BaseTest {
+
+
+    private ProductController productController;
+
+    @BeforeMethod
+    public void setupApi() {
+        productController = new ProductController();
+    }
 
     @Test
     public void restGet() {
-        given()
-                .baseUri("https://fakestoreapi.com")
-                .contentType(ContentType.JSON)
-                .basePath("/products/1")
-                .when()
-                .get()
-                .then()
+        Response response = productController.getSchema(1);
+
+        response.then()
                 .log().body()
                 .body(matchesJsonSchemaInClasspath("product.json"));
     }

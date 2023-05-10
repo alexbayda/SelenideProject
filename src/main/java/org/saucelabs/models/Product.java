@@ -1,10 +1,13 @@
 package org.saucelabs.models;
 
-import lombok.Getter;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.*;
 
 
-@Getter @Setter
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
     private int id;
@@ -12,14 +15,9 @@ public class Product {
     private double price;
     private String description;
     private String category;
+    private String image;
 
+    @JsonProperty("rating")
     private Rating rating;
-
-    public Product(String title, double price, String description, String category) {
-        this.title = title;
-        this.price = price;
-        this.description = description;
-        this.category = category;
-    }
 
 }
