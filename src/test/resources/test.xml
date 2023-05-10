@@ -1,0 +1,13 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="API Suite" parallel="classes">
+    <listeners>
+        <listener class-name="io.qameta.allure.testng.AllureTestNg" />
+    </listeners>
+    <test name="API Test">
+        <classes>
+            <class name="api.ApiTests" />
+            <class name="api.ContractTest" />
+            <class name="api.LogToAllureTest" />
+        </classes>
+    </test>
+</suite>

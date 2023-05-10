@@ -1,9 +1,10 @@
-import org.junit.Test;
+package ui;
+
+import setup.BaseTest;
 import org.saucelabs.MainPage;
+import org.testng.annotations.Test;
 
-import static org.saucelabs.utils.RandomSelector.getRandom;
-
-public class SauceLabsTests extends BaseTest{
+public class SauceLabsTests extends BaseTest {
 
     private final static String BASE_URL = "https://www.saucedemo.com/";
 

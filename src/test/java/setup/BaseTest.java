@@ -1,18 +1,21 @@
-import io.github.bonigarcia.wdm.WebDriverManager;
-import com.codeborne.selenide.*;
-import org.junit.After;
-import org.junit.Before;
+package setup;
 
-abstract public class BaseTest {
+import com.codeborne.selenide.Configuration;
+import com.codeborne.selenide.Selenide;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.testng.annotations.AfterClass;
+import org.testng.annotations.BeforeClass;
+
+public class BaseTest {
 
 
 
     //implement maven profiles
     //watch maven to Pojo plugin (maybe implement)
 
-    //https://swapi.dev/ get port put delete + Rest_assured + allure
-    //json schema validation + contact testing
-
+    //download allure and try cmd allure serve
+    //controller get products post product, remove given when from tests
+    //map response to java object (Jackson annotation)
 
     public void setUp(){
         WebDriverManager.chromedriver().setup();
@@ -23,12 +26,12 @@ abstract public class BaseTest {
         Configuration.baseUrl = "";
     }
 
-    @Before
+    @BeforeClass
     public void init(){
         setUp();
     }
 
-    @After
+    @AfterClass
     public void tearDown(){
         Selenide.closeWebDriver();
     }
