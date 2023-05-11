@@ -3,6 +3,7 @@ package api;
 import org.saucelabs.api.data.TestData;
 import io.restassured.response.Response;
 import org.saucelabs.models.Product;
+import org.saucelabs.models.Rating;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import setup.BaseTest;

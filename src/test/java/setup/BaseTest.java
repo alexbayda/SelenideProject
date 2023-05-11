@@ -17,6 +17,12 @@ public class BaseTest {
     //controller get products post product, remove given when from tests
     //map response to java object (Jackson annotation)
 
+
+    /*questions -
+    where is statusCode verifications?
+    do I need to create a method for each builder scenario?
+    how to log responses into console? or now they are only seen in debug?*/
+
     public void setUp(){
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
