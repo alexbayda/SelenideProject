@@ -1,22 +1,12 @@
 package api;
 
 import io.restassured.response.Response;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import setup.BaseTest;
-import setup.ProductController;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class ContractTest extends BaseTest {
-
-
-    private ProductController productController;
-
-    @BeforeMethod
-    public void setupApi() {
-        productController = new ProductController();
-    }
 
     @Test
     public void restGet() {
@@ -24,7 +14,8 @@ public class ContractTest extends BaseTest {
 
         response.then()
                 .log().body()
-                .body(matchesJsonSchemaInClasspath("product.json"));
+                .assertThat().
+                body(matchesJsonSchemaInClasspath("product.json"));
     }
 }
 

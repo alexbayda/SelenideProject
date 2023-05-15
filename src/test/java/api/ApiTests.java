@@ -1,13 +1,10 @@
 package api;
 
-import org.saucelabs.api.data.TestData;
 import io.restassured.response.Response;
+import org.saucelabs.api.data.TestData;
 import org.saucelabs.models.Product;
-import org.saucelabs.models.Rating;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import setup.BaseTest;
-import setup.ProductController;
 
 import java.io.IOException;
 
@@ -17,22 +14,16 @@ import static org.saucelabs.api.data.ProductBuilder.buildProduct;
 @lombok.extern.slf4j.Slf4j
 public class ApiTests extends BaseTest {
 
-    private ProductController productController;
-
-    @BeforeMethod
-    public void setupApi() {
-        productController = new ProductController();
-    }
 
     @Test
-    public void testGetRequest() throws IOException {
+    public void testGetRequest() { //
         Product product = productController.getProduct(1);
         assertProductProperties(product);
     }
 
     @Test(dataProvider = "productData", dataProviderClass = TestData.class)
-    public void testPostRequest(String title, double price, String description, String category) throws IOException {
-        Product product = buildProduct(title,price,description,category);
+    public void testPostRequest(String title, double price, String description, String category) {
+        Product product = buildProduct(title, price, description, category);
 
         Product productRequest = productController.createProduct(product);
         assertProductProperties(productRequest, title, price, description, category);
@@ -40,7 +31,7 @@ public class ApiTests extends BaseTest {
 
     @Test(dataProvider = "productData", dataProviderClass = TestData.class)
     public void testPutRequest(String title, double price, String description, String category) throws IOException {
-        Product product = buildProduct(title,price,description,category);
+        Product product = Product.builder().id(1).price(12.12).build();
 
         Product productRequest = productController.createProduct(product);
         int productId = productRequest.getId();
@@ -57,8 +48,8 @@ public class ApiTests extends BaseTest {
     }
 
     @Test(dataProvider = "productData", dataProviderClass = TestData.class)
-    public void testDeleteRequest(String title, double price, String description, String category) throws IOException {
-        Product product = buildProduct(title,price,description,category);
+    public void testDeleteRequest(String title, double price, String description, String category) {
+        Product product = buildProduct(title, price, description, category);
 
         Product postResponse = productController.createProduct(product);
         int productId = postResponse.getId();

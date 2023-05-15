@@ -5,7 +5,7 @@ import org.hamcrest.Matchers;
 import org.saucelabs.models.Product;
 public class ProductAssertions {
 
-    public static void assertProductProperties(Product product) {
+    public static void assertProductProperties(Product product) { //add Predicate or Matcher lambda
         MatcherAssert.assertThat(product.getId(), Matchers.equalTo(1));
         MatcherAssert.assertThat(product.getTitle(), Matchers.equalTo("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"));
         MatcherAssert.assertThat(product.getPrice(), Matchers.equalTo(109.95));

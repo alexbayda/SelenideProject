@@ -10,32 +10,28 @@ import java.io.IOException;
 import static io.restassured.RestAssured.given;
 
 public class ProductController {
-    private static final String BASE_URL = "https://fakestoreapi.com/";
+
     private final ObjectMapper objectMapper = new ObjectMapper();
 
-    public ProductController() {
-        RestAssured.baseURI = BASE_URL;
+    public Product getProduct(int id) {
+        return RestAssured.get("/products/" + id).then().extract().as(Product.class);
     }
 
-    public Product getProduct(int id) throws IOException {
-        Response response = RestAssured.get("/products/" + id);
-        return objectMapper.readValue(response.asString(), Product.class);
-    }
-
-    public Product createProduct(Product product) throws IOException {
-        Response response = given()
-                .contentType("application/json")
-                .body(objectMapper.writeValueAsString(product))
-                .post("/products");
-        return objectMapper.readValue(response.asString(), Product.class);
+    public Product createProduct(Product product) {
+        return given()
+                .contentType("application/json") //move to basetest config
+                .body(product)
+                .post("/products")
+                .prettyPeek()
+                .then().statusCode(200).extract().as(Product.class);
     }
 
     public Product updateProduct(int id, Product updatedProduct) throws IOException {
-        Response response = given()
+        return given()
                 .contentType("application/json")
                 .body(objectMapper.writeValueAsString(updatedProduct))
-                .put("/products/" + id);
-        return objectMapper.readValue(response.asString(), Product.class);
+                .put("/products/" + id)
+                .then().statusCode(200).extract().as(Product.class);
     }
 
     public Response deleteProduct(int id) {

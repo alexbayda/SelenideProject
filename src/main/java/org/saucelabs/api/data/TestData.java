@@ -4,7 +4,7 @@ import org.testng.annotations.DataProvider;
 
 public class TestData {
 
-    @DataProvider(name = "productData")
+    @DataProvider(name = "productData") //iterable products //generics
     public static Object[][] createProductData() {
         return new Object[][]{
                 {"Sumka", 69.69, "Style is everything", "Men clothing"},
