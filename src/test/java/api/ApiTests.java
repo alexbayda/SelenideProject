@@ -6,8 +6,6 @@ import org.saucelabs.models.Product;
 import org.testng.annotations.Test;
 import setup.BaseTest;
 
-import java.io.IOException;
-
 import static assertions.ProductAssertions.assertProductProperties;
 import static org.saucelabs.api.data.ProductBuilder.buildProduct;
 
@@ -28,7 +26,7 @@ public class ApiTests extends BaseTest {
     }
 
     @Test(dataProvider = "productData", dataProviderClass = TestData.class)
-    public void testPutRequest(String title, double price, String description, String category) throws IOException {
+    public void testPutRequest(String title, double price, String description, String category) {
         Product initialProduct = Product.builder().id(1).price(12.12).build();
         Product createdProduct = controller.createEntity(initialProduct, Product.class);
 
