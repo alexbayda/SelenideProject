@@ -1,25 +1,43 @@
 package assertions;
 
 import org.hamcrest.MatcherAssert;
-import org.hamcrest.Matchers;
 import org.saucelabs.models.Product;
+import org.saucelabs.models.User;
+
+import java.util.Objects;
+import java.util.function.Predicate;
+
 public class ProductAssertions {
 
-    public static void assertProductProperties(Product product) { //add Predicate or Matcher lambda
-        MatcherAssert.assertThat(product.getId(), Matchers.equalTo(1));
-        MatcherAssert.assertThat(product.getTitle(), Matchers.equalTo("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"));
-        MatcherAssert.assertThat(product.getPrice(), Matchers.equalTo(109.95));
-        MatcherAssert.assertThat(product.getDescription(), Matchers.startsWith("Your perfect pack for everyday use"));
-        MatcherAssert.assertThat(product.getCategory(), Matchers.equalTo("men's clothing"));
-        MatcherAssert.assertThat(product.getImage(), Matchers.equalTo("https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"));
-        MatcherAssert.assertThat(product.getRating().getRate(), Matchers.equalTo(3.9));
-        MatcherAssert.assertThat(product.getRating().getCount(), Matchers.equalTo(120));
+    public static <T> void assertProperty(T object, Predicate<T> predicate, String errorMessage){
+        MatcherAssert.assertThat(errorMessage,predicate.test(object));
+    }
+
+    public static void assertProductProperties(Product product) {
+        assertProperty(product, p -> p.getId() == 1, "Product ID mismatch");
+        assertProperty(product, p -> p.getTitle().equals("Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops"), "Title does not match");
+        assertProperty(product, p -> p.getPrice() == 109.95, "Price does not match");
+        assertProperty(product, p -> p.getDescription().startsWith("Your perfect pack for everyday use"), "Description does not match");
+        assertProperty(product, p -> p.getCategory().equals("men's clothing"), "Category does not match");
+        assertProperty(product, p -> p.getImage().equals("https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"), "Image does not match");
+        assertProperty(product, p -> p.getRating().getRate() == 3.9, "Rating rate does not match");
+        assertProperty(product, p -> p.getRating().getCount() == 120, "Rating count does not match");
     }
 
     public static void assertProductProperties(Product product, String title, double price, String description, String category) {
-        MatcherAssert.assertThat(product.getTitle(), Matchers.equalTo(title));
-        MatcherAssert.assertThat(product.getPrice(), Matchers.equalTo(price));
-        MatcherAssert.assertThat(product.getDescription(), Matchers.equalTo(description));
-        MatcherAssert.assertThat(product.getCategory(), Matchers.equalTo(category));
+        assertProperty(product.getTitle(), title::equals, "Title does not match");
+        assertProperty(product.getPrice(), p -> p == price, "Price does not match");
+        assertProperty(product.getDescription(), description::equals, "Description does not match");
+        assertProperty(product.getCategory(), category::equals, "Category does not match");
+    }
+
+    public static void assertUserProperties(User user, int id,String date){
+        assertProperty(user.getId(), u -> u == id, "Id does not match");
+        assertProperty(user.getDate(), date.equals("null") ? Objects::isNull : date::equals, "Date does not match");
+//        if (date.equals("null")) {
+//            assertProperty(user.getDate(), Objects::isNull, "Date does not match");
+//        } else {
+//            assertProperty(user.getDate(), date::equals, "Date does not match");
+//        }
     }
 }

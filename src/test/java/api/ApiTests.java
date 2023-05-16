@@ -16,8 +16,8 @@ public class ApiTests extends BaseTest {
 
 
     @Test
-    public void testGetRequest() { //
-        Product product = productController.getProduct(1);
+    public void testGetRequest() {
+        Product product = controller.getProduct(1);
         assertProductProperties(product);
     }
 
@@ -25,7 +25,7 @@ public class ApiTests extends BaseTest {
     public void testPostRequest(String title, double price, String description, String category) {
         Product product = buildProduct(title, price, description, category);
 
-        Product productRequest = productController.createProduct(product);
+        Product productRequest = controller.createEntity(product, Product.class);
         assertProductProperties(productRequest, title, price, description, category);
     }
 
@@ -33,7 +33,7 @@ public class ApiTests extends BaseTest {
     public void testPutRequest(String title, double price, String description, String category) throws IOException {
         Product product = Product.builder().id(1).price(12.12).build();
 
-        Product productRequest = productController.createProduct(product);
+        Product productRequest = controller.createEntity(product, Product.class);
         int productId = productRequest.getId();
 
         Product updatedProduct = Product.builder()
@@ -43,7 +43,7 @@ public class ApiTests extends BaseTest {
                 .category("Updated " + category)
                 .build();
 
-        Product putResponse = productController.updateProduct(productId, updatedProduct);
+        Product putResponse = controller.updateEntity(productId, updatedProduct, Product.class);
         assertProductProperties(putResponse, "Updated " + title, price + 10, "Updated " + description, "Updated " + category);
     }
 
@@ -51,10 +51,10 @@ public class ApiTests extends BaseTest {
     public void testDeleteRequest(String title, double price, String description, String category) {
         Product product = buildProduct(title, price, description, category);
 
-        Product postResponse = productController.createProduct(product);
+        Product postResponse = controller.createEntity(product, Product.class);
         int productId = postResponse.getId();
 
-        Response response = productController.deleteProduct(productId);
+        Response response = controller.deleteProduct(productId);
         response.then().statusCode(200);
     }
 }

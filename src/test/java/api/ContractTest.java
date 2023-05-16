@@ -10,12 +10,10 @@ public class ContractTest extends BaseTest {
 
     @Test
     public void restGet() {
-        Response response = productController.getSchema(1);
+        Response response = controller.getSchema(1);
 
         response.then()
-                .log().body()
-                .assertThat().
-                body(matchesJsonSchemaInClasspath("product.json"));
+                .assertThat().body(matchesJsonSchemaInClasspath("product.json"));
     }
 }
 
