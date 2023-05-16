@@ -14,6 +14,32 @@
         <aspectj.version>1.9.19</aspectj.version>
     </properties>
 
+    <profiles>
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <env>dev</env>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>qa</id>
+            <activation>
+                <property>
+                    <name>env</name>
+                    <value>qa</value>
+                </property>
+            </activation>
+            <properties>
+                <env>qa</env>
+            </properties>
+        </profile>
+    </profiles>
+
+
     <dependencies>
         <!-- Allure plugin for REST-Assured-->
         <dependency>

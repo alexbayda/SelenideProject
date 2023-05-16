@@ -18,22 +18,22 @@ public class BaseTest {
 
 
     //implement maven profiles
+
     //watch maven to Pojo plugin (maybe implement)
     //java 8 functional interfaces //Consumer//Supplier//Predicate
 
-    //RestAssured filters for the logging into console and allure
-    //annonimous classes -> lambdas -> methods reference
 
     protected Controller controller;
     protected RequestSpecification requestSpec;
-    private static final String BASE_URL = "https://fakestoreapi.com/";
+    protected String environment = System.getProperty("env", "dev");
+    private static String BASE_URL;
     public void setUpUI(){
         WebDriverManager.chromedriver().setup();
         Configuration.browser = "chrome";
         Configuration.driverManagerEnabled = true;
         Configuration.browserSize = "1920x1080";
         Configuration.headless = false;
-        Configuration.baseUrl = "";
+        Configuration.baseUrl = "https://www.saucedemo.com/";
 
     }
 
@@ -48,8 +48,18 @@ public class BaseTest {
         RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
         RestAssured.filters(new AllureRestAssured());
     }
+
+    public void setupEnv(){
+        if("qa".equals(environment)){
+            BASE_URL =  null;
+        }
+        else {
+            BASE_URL =  "https://fakestoreapi.com/";
+        }
+    }
     @BeforeClass
     public void init(){
+        setupEnv();
         setUpUI();
         setupAPI();
     }
