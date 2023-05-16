@@ -1,6 +1,6 @@
 # Project exclude paths
 /.idea/
-/terget/
+/target/
 *.iml
 /.allure/
 /allure-results/
