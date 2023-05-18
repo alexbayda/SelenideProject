@@ -9,8 +9,8 @@ import java.util.function.Predicate;
 
 public class ProductAssertions {
 
-    public static <T> void assertProperty(T object, Predicate<T> predicate, String errorMessage){
-        MatcherAssert.assertThat(errorMessage,predicate.test(object));
+    public static <T> void assertProperty(T object, Predicate<T> predicate, String errorMessage) {
+        MatcherAssert.assertThat(errorMessage, predicate.test(object));
     }
 
     public static void assertProductProperties(Product product) {
@@ -31,13 +31,8 @@ public class ProductAssertions {
         assertProperty(product.getCategory(), category::equals, "Category does not match");
     }
 
-    public static void assertUserProperties(User user, int id,String date){
+    public static void assertUserProperties(User user, int id, String date) {
         assertProperty(user.getId(), u -> u == id, "Id does not match");
         assertProperty(user.getDate(), date.equals("null") ? Objects::isNull : date::equals, "Date does not match");
-//        if (date.equals("null")) {
-//            assertProperty(user.getDate(), Objects::isNull, "Date does not match");
-//        } else {
-//            assertProperty(user.getDate(), date::equals, "Date does not match");
-//        }
     }
 }

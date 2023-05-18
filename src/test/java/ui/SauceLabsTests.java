@@ -10,7 +10,7 @@ public class SauceLabsTests extends BaseTest {
 
 
     @Test
-    public void buyE2E(){
+    public void buyE2E() {
         MainPage mainPage = new MainPage(BASE_URL);
         mainPage.logIn();
         mainPage.addRandomItemToCart();

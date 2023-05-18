@@ -13,7 +13,7 @@ public class UserTest extends BaseTest {
         User user = User.builder().id(21).date("2020-03-02T00:00:00.000Z").build();
 
         User userRequest = controller.createEntity(user, User.class);
-        assertUserProperties(userRequest,21,"null");
+        assertUserProperties(userRequest, 21, "null");
     }
 
 }

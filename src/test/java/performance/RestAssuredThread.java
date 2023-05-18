@@ -9,7 +9,7 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class RestAssuredThread extends Thread{
+public class RestAssuredThread extends Thread {
     private final int threadNumber;
     public static Map<Integer, Long> times;
     public static int failures;
@@ -31,7 +31,7 @@ public class RestAssuredThread extends Thread{
                 .when()
                 .get()
                 .then();
-        if(response.extract().statusCode() != 200)
+        if (response.extract().statusCode() != 200)
             failures++;
         times.put(threadNumber, response.extract().time());
     }

@@ -6,6 +6,7 @@ import org.saucelabs.models.Product;
 import org.testng.annotations.Test;
 import setup.BaseTest;
 
+
 import static assertions.ProductAssertions.assertProductProperties;
 import static org.saucelabs.api.data.ProductBuilder.buildProduct;
 

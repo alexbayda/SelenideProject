@@ -25,12 +25,12 @@ public class MainPage {
     private final SelenideElement checkOutContinueButton = $x("//*[@id=\"continue\"]");
     private final SelenideElement finishCheckoutButton = $("#finish");
 
-    public MainPage(String url){
+    public MainPage(String url) {
         Selenide.open(url);
     }
 
 
-    public void logIn(){
+    public void logIn() {
         usernameBox.sendKeys("standard_user");
         passwordBox.sendKeys("secret_sauce");
         loginButton.click();
@@ -45,7 +45,7 @@ public class MainPage {
     }
 
     public void elementIsDisplayed(SelenideElement element) {
-        assert(element.isDisplayed());
+        assert (element.isDisplayed());
     }
 
     public void fillFormFromCsvAndBuy() {

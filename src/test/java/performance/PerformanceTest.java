@@ -4,14 +4,15 @@ import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import static org.saucelabs.utils.ChartSwing.toLineChartPict;
 import static org.testng.AssertJUnit.assertEquals;
-import static org.saucelabs.utils.ChartCreator.toLineChartPict;
 
 public class PerformanceTest {
 
     @Test
-    public void performanceTest() throws InterruptedException {
+    public void performanceTest() throws InterruptedException, ExecutionException {
         int threadNumber = 100;
         List<Thread> threads = new ArrayList<>();
         for (int i = 0; i < threadNumber; i++) {
@@ -28,6 +29,6 @@ public class PerformanceTest {
         System.out.println(RestAssuredThread.times);
         toLineChartPict("Endpoint performance", "Time Of Responses", RestAssuredThread.times);
 
-        assertEquals(String.format("There is %s unsuccessful responses",RestAssuredThread.failures), 0, RestAssuredThread.failures);
+        assertEquals(String.format("There is %s unsuccessful responses", RestAssuredThread.failures), 0, RestAssuredThread.failures);
     }
 }

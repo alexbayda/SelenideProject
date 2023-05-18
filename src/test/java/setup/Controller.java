@@ -13,7 +13,7 @@ public class Controller {
         return RestAssured.get("/products/" + id).then().extract().as(Product.class);
     }
 
-    public <T> T createEntity(T entity, Class <T> entityType) {
+    public <T> T createEntity(T entity, Class<T> entityType) {
         return given()
                 .contentType("application/json")
                 .body(entity)
@@ -35,7 +35,7 @@ public class Controller {
         return RestAssured.delete("/products/" + id);
     }
 
-    public Response getSchema (int productId) {
+    public Response getSchema(int productId) {
         return given()
                 .basePath("products")
                 .pathParam("id", productId)

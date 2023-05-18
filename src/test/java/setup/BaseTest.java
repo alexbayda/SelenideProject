@@ -16,7 +16,6 @@ import org.testng.annotations.BeforeClass;
 public class BaseTest {
 
 
-
     //implement maven profiles
 
     //watch maven to Pojo plugin (maybe implement)
@@ -40,13 +39,11 @@ public class BaseTest {
     public void setupAPI(){
         RestAssured.baseURI = BASE_URL;
         requestSpec = new RequestSpecBuilder()
-                .setContentType(ContentType.JSON)
                 .setBasePath("/carts?userId=1")
-                .build()
-                .filter(new AllureRestAssured());
+                .setContentType(ContentType.JSON)
+                .build();
         controller = new Controller();
-        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
-        RestAssured.filters(new AllureRestAssured());
+        RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter(),new AllureRestAssured());
     }
 
     public void setupEnv(){
