@@ -1,11 +1,13 @@
 package org.saucelabs.utils;
 
+import lombok.experimental.UtilityClass;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 import java.util.Random;
 
+@UtilityClass
 public class RandomSelector {
     public static <E> E getRandom(List<E> element) {
         Random random = new Random();

@@ -9,6 +9,7 @@ import javafx.scene.chart.AreaChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.image.WritableImage;
+import lombok.experimental.UtilityClass;
 
 import javax.imageio.ImageIO;
 import java.io.ByteArrayOutputStream;
@@ -19,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.FutureTask;
 import java.util.stream.Collectors;
 
+@UtilityClass
 public class ChartSwing {
 
     @Attachment

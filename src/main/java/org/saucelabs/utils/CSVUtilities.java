@@ -1,5 +1,8 @@
 package org.saucelabs.utils;
 
+import lombok.experimental.UtilityClass;
+import org.saucelabs.models.UserDto;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -8,11 +11,12 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
+@UtilityClass
 public class CSVUtilities {
 
     public List<UserDto> usersList = getUserDetails();
 
-    private List<UserDto> getUserDetails() {
+    private static List<UserDto> getUserDetails() {
         List<UserDto> usersList = new ArrayList<>();
         Path pathToFile = Paths.get("src\\users.csv");
         try (
@@ -20,7 +24,7 @@ public class CSVUtilities {
             String line = br.readLine();
             while (line != null) {
                 String[] attributes = line.split(",");
-                UserDto user = getUser(attributes);
+                var user = getUser(attributes);
                 usersList.add(user);
                 line = br.readLine();
             }

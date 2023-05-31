@@ -15,12 +15,19 @@ import org.testng.annotations.BeforeClass;
 
 public class BaseTest {
 
+    //dependency inversion
+    //try to reproduce *throws *try/catch and see how it works
 
-    //implement maven profiles
+    //implement Class Composition and Aggregation
+    //Read about association of pattern bridge and fassad //not only refactoring guru!
+    //coup management of inner object life
+    //how to go around inheritance
 
-    //watch maven to Pojo plugin (maybe implement)
-    //java 8 functional interfaces //Consumer//Supplier//Predicate
-
+    //connection to DB
+    //Generics
+    //garbage collector + pull of strings + method intern
+    //native methods
+    //pass by value pass by reference
 
     protected Controller controller;
     protected RequestSpecification requestSpec;

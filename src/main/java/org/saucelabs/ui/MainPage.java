@@ -2,7 +2,7 @@ package org.saucelabs.ui;
 
 import com.codeborne.selenide.*;
 import org.saucelabs.utils.CSVUtilities;
-import org.saucelabs.utils.UserDto;
+import org.saucelabs.models.UserDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -49,8 +49,7 @@ public class MainPage {
     }
 
     public void fillFormFromCsvAndBuy() {
-        CSVUtilities utilities = new CSVUtilities();
-        for (UserDto user : utilities.usersList) {
+        for (UserDto user : CSVUtilities.usersList) {
             checkOutFirstName.sendKeys(user.getName());
             checkOutLastName.sendKeys(user.getSurname());
             checkOutPostalCode.sendKeys(user.getPostalCode());
