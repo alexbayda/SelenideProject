@@ -26,7 +26,8 @@ public class MainPage {
     private final SelenideElement finishCheckoutButton = $("#finish");
 
     public MainPage(String url) {
-        Selenide.open(url);
+        open(url, MainPage.class)
+                .passwordBox.sendKeys("blabla"); //don't do it in real life
     }
 
 
